@@ -1,0 +1,76 @@
+:revealjs_theme: white
+:customcss: css/presentation.css
+ifdef::env-ide[]
+:imagesdir: ../images
+endif::[]
+
+[.title]
+= "Messaging" - Referat
+
+[.font-xx-large]
+== Was versteht man darunter?
+Messaging bezeichnet den Austausch von Nachrichten zwischen Systemen oder Anwendungen. Es ermöglicht eine asynchrone Kommunikation, bei der Sender und Empfänger nicht gleichzeitig aktiv sein müssen. Es gibt zwei Hauptarten:
+
+* Point-to-Point (P2P): Eine Nachricht geht von einem Sender zu einem Empfänger.
+* Publish-Subscribe (Pub/Sub): Mehrere Empfänger können Nachrichten von einem Publisher abonnieren.
+
+[.font-xx-large]
+== MQTT
+
+MQTT (Message Queuing Telemetry Transport) ist ein leichtgewichtiges Protokoll, besonders für das IoT entwickelt. Es nutzt das Pub/Sub-Modell und ist für ressourcenarme Geräte und Netzwerke mit geringer Bandbreite geeignet.
+
+[.font-xx-large]
+== Kafka
+Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzeit. Es organisiert Nachrichten in Topics und skaliert durch Partitionen.
+
+* Hohe Verfügbarkeit und Skalierbarkeit: Kafka kann große Datenmengen verarbeiten und speichern.
+* Langlebigkeit: Nachrichten können langfristig gespeichert werden.
+
+[.font-xx-large]
+== Unterschiede
+
+[cols="1, 2, 2"]
+|===
+|Feature
+|MQTT
+|Kafka
+
+|Protokoll
+|Leichtgewichtiges Pub/Sub-Protokoll
+|Verteiltes Streaming-Protokoll
+
+|Einsatzbereich
+|IoT, ressourcenarme Geräte
+|Große Datenströme, Datenanalyse
+
+|Nachrichtenhaltung
+|Kurzfristig, bis zugestellt
+|Langfristig, Speicherung auf Server
+
+|QoS
+|Drei Stufen der Nachrichtenzustellung
+|Keine expliziten QoS-Level, aber Replikation für Zuverlässigkeit
+
+|Verfügbarkeit
+|Hohe Verfügbarkeit durch Broker
+|Hohe Verfügbarkeit und Skalierbarkeit durch Partitionierung
+|===
+
+[.font-xx-large]
+== Andere
+
+* AMQP, RabbitMQ: Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.
+* ZeroMQ: Hochperformantes Messaging-Framework.
+* Google Pub/Sub, Amazon SQS: Cloud-basierte Messaging-Dienste.
+
+[pass]
+== Notizen
+https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Qos]:
+
+* QoS 0: schick
+* QoS 1: schick, ahlte kopie, kein "Puback" zurückbekommen, schick nochmal, sonst kopie weg
+* QoS 2: zu viel
+
+Skalierbarkeit durch Partitionierung:
+
+*

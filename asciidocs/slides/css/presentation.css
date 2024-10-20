@@ -1,13 +1,24 @@
-/*https://github.com/asciidoctor/asciidoctor-reveal.js/issues/199*/
-.reveal section img {
-    border: 0;
-    box-shadow: none;
-}
-.font-smaller {
-    font-size: smaller;
-}
-.font-larger {
-    font-size: larger;
+.font-xx-large {
+    font-size: xx-large;
 }
 
-.reveal .lightbg { background: #fff8f1d0; }
+.font-x-large {
+    font-size: x-large;
+}
+
+.title {
+
+}
+
+.highlight {
+    background-color: #98bdef;
+    color: #fff;
+}
+
+h2 {
+    margin-bottom: 10px !important;
+}
+
+p {
+    margin-top: 0 !important;
+}
