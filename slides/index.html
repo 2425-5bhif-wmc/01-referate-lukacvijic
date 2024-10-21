@@ -422,8 +422,7 @@ ul.byline li + li {
 <section id="_andere" class="font-xx-large"><h2>Andere</h2><div class="slide-content"><div class="ulist"><ul><li><p>AMQP, RabbitMQ: Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.</p></li><li><p>ZeroMQ: Hochperformantes Messaging-Framework.</p></li><li><p>Google Pub/Sub, Amazon SQS: Cloud-basierte Messaging-Dienste.</p></li></ul></div></div></section>
 <section id="_notizen"><h2>Notizen</h2><div class="slide-content"><div class="paragraph"><p><a href="https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/">Qos</a>:</p></div>
 <div class="ulist"><ul><li><p>QoS 0: schick</p></li><li><p>QoS 1: schick, ahlte kopie, kein "Puback" zurückbekommen, schick nochmal, sonst kopie weg</p></li><li><p>QoS 2: zu viel</p></li></ul></div>
-<div class="paragraph"><p>Skalierbarkeit durch Partitionierung:</p></div>
-<div class="paragraph"><p>*</p></div></div></section></div></div><script src="revealjs/dist/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
+<div class="paragraph"><p>Skalierbarkeit durch Partitionierung:</p></div></div></section></div></div><script src="revealjs/dist/reveal.js"></script><script>Array.prototype.slice.call(document.querySelectorAll('.slides section')).forEach(function(slide) {
   if (slide.getAttribute('data-background-color')) return;
   // user needs to explicitly say he wants CSS color to override otherwise we might break custom css or theme (#226)
   if (!(slide.classList.contains('canvas') || slide.classList.contains('background'))) return;
