@@ -72,5 +72,3 @@ https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-level
 * QoS 2: zu viel
 
 Skalierbarkeit durch Partitionierung:
-
-*
