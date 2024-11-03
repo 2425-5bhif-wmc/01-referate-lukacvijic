@@ -20,20 +20,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env:
-            - name: MP_MESSAGING_INCOMING_LOCATION_HOST
-              value: "vm90.htl-leonding.ac.at."
-            - name: MP_MESSAGING_INCOMING_LOCATION_PORT
-              value: "1883"
-            - name: MP_MESSAGING_INCOMING_LOCATION_TOPIC
-              value: "owntracks/student/#"
-            - name: MP_MESSAGING_INCOMING_LOCATION_USERNAME
-              value: "student"
-            - name: MP_MESSAGING_INCOMING_LOCATION_PASSWORD
-              value: "passme"
-            - name: MP_MESSAGING_INCOMING_LOCATION_CONNECTOR
-              value: "smallrye-mqtt"
-
 ---
 apiVersion: v1
 kind: Service

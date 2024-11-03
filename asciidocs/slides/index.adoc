@@ -1,4 +1,3 @@
-:revealjs_theme: white
 :customcss: css/presentation.css
 ifdef::env-ide[]
 :imagesdir: ../images
@@ -9,7 +8,8 @@ endif::[]
 
 [.font-xx-large]
 == Was versteht man darunter?
-Messaging bezeichnet den Austausch von Nachrichten zwischen Systemen oder Anwendungen. Es ermöglicht eine asynchrone Kommunikation, bei der Sender und Empfänger nicht gleichzeitig aktiv sein müssen. Es gibt zwei Hauptarten:
+Messaging bezeichnet den Austausch von Nachrichten zwischen Systemen oder Anwendungen. +
+Es gibt zwei Hauptarten:
 
 * Point-to-Point (P2P): Eine Nachricht geht von einem Sender zu einem Empfänger.
 * Publish-Subscribe (Pub/Sub): Mehrere Empfänger können Nachrichten von einem Publisher abonnieren.
@@ -29,6 +29,7 @@ Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzei
 [.font-xx-large]
 == Unterschiede
 
+[.myTable]
 [cols="1, 2, 2"]
 |===
 |Feature
@@ -49,26 +50,27 @@ Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzei
 
 |QoS
 |Drei Stufen der Nachrichtenzustellung
-|Keine expliziten QoS-Level, aber Replikation für Zuverlässigkeit
+|Acks und Replikation für Zuverlässigkeit
 
 |Verfügbarkeit
 |Hohe Verfügbarkeit durch Broker
-|Hohe Verfügbarkeit und Skalierbarkeit durch Partitionierung
+|Hohe Verfügbarkeit und Skalierbarkeit (Zookeeper)
 |===
+
+== Wer nutzt Kafka
+
+* Netflix/Spotify: Logs
+* Cloudflare: realtime Data analytics
+
+[.font-xx-large]
+== https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Qos]:
+
+* QoS 0: maximal einmal
+* QoS 1: mindestens einmal
+* QoS 2: genau
 
 [.font-xx-large]
 == Andere
 
-* AMQP, RabbitMQ: Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.
+* RabbitMQ: Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.
 * ZeroMQ: Hochperformantes Messaging-Framework.
-* Google Pub/Sub, Amazon SQS: Cloud-basierte Messaging-Dienste.
-
-[pass]
-== Notizen
-https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Qos]:
-
-* QoS 0: schick
-* QoS 1: schick, ahlte kopie, kein "Puback" zurückbekommen, schick nochmal, sonst kopie weg
-* QoS 2: zu viel
-
-Skalierbarkeit durch Partitionierung:

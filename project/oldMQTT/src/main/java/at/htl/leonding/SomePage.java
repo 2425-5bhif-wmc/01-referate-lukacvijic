@@ -10,7 +10,10 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.sse.Sse;
+import jakarta.ws.rs.sse.SseEventSink;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import java.util.*;
@@ -25,24 +28,20 @@ public class SomePage {
     ObjectMapper mapper;
 
     private final Template page;
+    private final Map<String, String> tIdsMap = new HashMap<>();;
 
     public SomePage(Template page) {
         this.page = requireNonNull(page, "page is required");
     }
 
-    private String selectedId = "cv";
-
-    private final Map<String, String> tIdsMap = new HashMap<>();;
-
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
-        return page.data("selectedId", selectedId, "tIds", tIdsMap, "keys", tIdsMap.keySet().stream().toList());
+        return page.data("tIds", tIdsMap, "keys", tIdsMap.keySet().stream().toList());
     }
 
     @Incoming("location")
     public void receiveLocation(byte[] data){
-
         try {
             LocationDTO myLocation = mapper.readValue(data, LocationDTO.class);
 
