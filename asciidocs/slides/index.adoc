@@ -1,10 +1,10 @@
+[.title]
+= "Messaging" - Referat
+
 :customcss: css/presentation.css
 ifdef::env-ide[]
 :imagesdir: ../images
 endif::[]
-
-[.title]
-= "Messaging" - Referat
 
 [.font-xx-large]
 == Was versteht man darunter?
@@ -16,17 +16,17 @@ Fokus auf:
 [.font-xx-large]
 == MQTT
 
-image::images/mqtt.png[]
+image::mqtt.png[]
 
 [.font-xx-large]
 == Unterschied zu Point-to-Point (REST)
 
-image::images/rest.png[]
+image::rest.png[]
 
 [.font-xx-large]
 == Kafka
 
-image::images/kafka.png[]
+image::kafka.png[]
 
 [.font-xx-large]
 == Unterschiede
