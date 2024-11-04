@@ -9,22 +9,24 @@ endif::[]
 [.font-xx-large]
 == Was versteht man darunter?
 Messaging bezeichnet den Austausch von Nachrichten zwischen Systemen oder Anwendungen. +
-Es gibt zwei Hauptarten:
+Fokus auf:
 
-* Point-to-Point (P2P): Eine Nachricht geht von einem Sender zu einem Empfänger.
 * Publish-Subscribe (Pub/Sub): Mehrere Empfänger können Nachrichten von einem Publisher abonnieren.
 
 [.font-xx-large]
 == MQTT
 
-MQTT (Message Queuing Telemetry Transport) ist ein leichtgewichtiges Protokoll, besonders für das IoT entwickelt. Es nutzt das Pub/Sub-Modell und ist für ressourcenarme Geräte und Netzwerke mit geringer Bandbreite geeignet.
+image::images/mqtt.png[]
+
+[.font-xx-large]
+== Unterschied zu Point-to-Point (REST)
+
+image::images/rest.png[]
 
 [.font-xx-large]
 == Kafka
-Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzeit. Es organisiert Nachrichten in Topics und skaliert durch Partitionen.
 
-* Hohe Verfügbarkeit und Skalierbarkeit: Kafka kann große Datenmengen verarbeiten und speichern.
-* Langlebigkeit: Nachrichten können langfristig gespeichert werden.
+image::images/kafka.png[]
 
 [.font-xx-large]
 == Unterschiede
@@ -33,7 +35,7 @@ Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzei
 [cols="1, 2, 2"]
 |===
 |Feature
-|MQTT
+|Mosquitto (MQTT)
 |Kafka
 
 |Protokoll
@@ -41,26 +43,21 @@ Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzei
 |Verteiltes Streaming-Protokoll
 
 |Einsatzbereich
-|IoT, ressourcenarme Geräte
-|Große Datenströme, Datenanalyse
+|IoT, ressourcenarme Geräte, industrielle Anlagen (Ölrohre)
+|Große Datenströme, Datenanalyse (Netflix/Spotify: Logs)
 
 |Nachrichtenhaltung
 |Kurzfristig, bis zugestellt
 |Langfristig, Speicherung auf Server
 
-|QoS
-|Drei Stufen der Nachrichtenzustellung
-|Acks und Replikation für Zuverlässigkeit
+|Zuverlässigkeit
+|Qos
+|Acks
 
 |Verfügbarkeit
 |Hohe Verfügbarkeit durch Broker
 |Hohe Verfügbarkeit und Skalierbarkeit (Zookeeper)
 |===
-
-== Wer nutzt Kafka
-
-* Netflix/Spotify: Logs
-* Cloudflare: realtime Data analytics
 
 [.font-xx-large]
 == https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Qos]:
@@ -72,5 +69,5 @@ Kafka ist eine verteilte Streaming-Plattform für große Datenströme in Echtzei
 [.font-xx-large]
 == Andere
 
-* RabbitMQ: Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.
-* ZeroMQ: Hochperformantes Messaging-Framework.
+* RabbitMQ (AMQP): Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.
+* ZeroMQ (ZMTP): Hochperformantes Messaging-Framework.
