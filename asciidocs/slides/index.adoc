@@ -70,6 +70,15 @@ image::kafka.png[]
 * ZeroMQ (ZMTP): Hochperformantes Messaging-Framework.
 
 [.font-xx-large]
+== Mosquitto https://efundies.com/how-to-choose-an-mqtt-broker-mosquitto-vs-hivemq-vs-home-assistant/[Alternativen]
+
+HiveMQ
+
+* Nachteil: wenige Optionen zum Individualisieren
+** Kein Ändern des Benutzernamen und Passwortes
+** Keine Verschlüsselung
+
+[.font-xx-large]
 == W-Fragen
 
 [.font-xx-large]
