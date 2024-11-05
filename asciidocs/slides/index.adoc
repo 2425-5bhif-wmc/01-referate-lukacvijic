@@ -1,10 +1,11 @@
+ifdef::env-ide[]
+:imagesdir: ./images
+endif::[]
+
 [.title]
 = "Messaging" - Referat
-
 :customcss: css/presentation.css
-ifdef::env-ide[]
-:imagesdir: ../images
-endif::[]
+:revealjs_theme: night
 
 [.font-xx-large]
 == Was versteht man darunter?
@@ -16,16 +17,19 @@ Fokus auf:
 [.font-xx-large]
 == MQTT
 
+[.big-image]
 image::mqtt.png[]
 
 [.font-xx-large]
-== Unterschied zu Point-to-Point (REST)
+== Point-to-Point (REST)
 
+[.big-image]
 image::rest.png[]
 
 [.font-xx-large]
 == Kafka
 
+[.big-image]
 image::kafka.png[]
 
 [.font-xx-large]
@@ -60,14 +64,65 @@ image::kafka.png[]
 |===
 
 [.font-xx-large]
-== https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Qos]:
-
-* QoS 0: maximal einmal
-* QoS 1: mindestens einmal
-* QoS 2: genau
-
-[.font-xx-large]
 == Andere
 
 * RabbitMQ (AMQP): Zuverlässige Messaging-Protokolle für Unternehmensanwendungen.
 * ZeroMQ (ZMTP): Hochperformantes Messaging-Framework.
+
+[.font-xx-large]
+== W-Fragen
+
+[.font-xx-large]
+== Das kann ich mir nicht vorstellen!
+
+[.font-xx-large]
+=== https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Qos]:
+
+* QoS 0: maximal einmal
+* QoS 1: mindestens einmal
+* QoS 2: genau einmal
+
+[.font-xx-large]
+=== QoS 0
+image::qos0.webp[]
+
+[.font-xx-large]
+=== QoS 1
+image::qos1.webp[]
+
+[.font-xx-large]
+=== QoS 2
+image::qos2.webp[]
+
+[.font-xx-large]
+=== https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/[Ack]:
+
+* Ack 0: nur senden
+* Ack 1: leader acknowledgment
+* Ack all: replica acknowledgment
+
+[.font-xx-large]
+=== Acks
+[.big-image]
+image::kafkaAckOwn.png[]
+
+[.font-xx-large]
+== Wo läuft den des!
+
+[.font-xx-large]
+=== Beim Starten von der Kafka App
+
+[.command]
+[source]
+----
+INFO  [io.qua.kaf.cli.dep.DevServicesKafkaProcessor] (build-7)
+Dev Services for Kafka started.
+Other Quarkus applications in dev mode will find the broker automatically.
+For Quarkus applications in production mode, you can connect to this by starting your application with
+-Dkafka.bootstrap.servers=OUTSIDE://localhost:32773
+----
+
+[.font-xx-large]
+=== Beim Starten von der Kafka App
+
+image::brokerInDocker.png[]
