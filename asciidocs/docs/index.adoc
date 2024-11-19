@@ -1,5 +1,6 @@
 = Getting started
 ifndef::imagesdir[:imagesdir: images]
+
 :icons: font
 :toc:
 :source-highlighter: rouge
@@ -67,7 +68,7 @@ TIP: Falls man nur an eine bestimmte Topic senden will: `mp.messaging.outgoing.l
 ====
 [,java]
 ----
-include::../../project/senderMQTT/src/main/java/at/htl/leonding/entity/LocationDTO.java[]
+include::project/senderMQTT/src/main/java/at/htl/leonding/entity/LocationDTO.java[]
 ----
 ====
 
@@ -75,7 +76,7 @@ NOTE: Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klass
 
 [,java]
 ----
-include::../../project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
+include::./project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
 ----
 
 <1> Wir holen uns die Basis für unsere Topic aus den Configs
