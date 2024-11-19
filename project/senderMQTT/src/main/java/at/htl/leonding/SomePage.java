@@ -2,34 +2,32 @@ package at.htl.leonding;
 
 import at.htl.leonding.entity.LocationDTO;
 import io.netty.handler.codec.mqtt.MqttQoS;
-import io.quarkus.logging.Log;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 
 import io.smallrye.reactive.messaging.mqtt.MqttMessage;
-import io.smallrye.reactive.messaging.mqtt.MqttMessageMetadata;
-import io.smallrye.reactive.messaging.mqtt.SendingMqttMessage;
 import io.smallrye.reactive.messaging.mqtt.SendingMqttMessageMetadata;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.*;
-import org.jboss.logging.annotations.Pos;
 
 import static java.util.Objects.requireNonNull;
 
 @Path("/some-page")
 public class SomePage {
 
+    // tag::global[]
     @ConfigProperty(name = "base.topic")
-    String baseTopic;
+    String baseTopic; // <1>
 
     @Inject
-    @Channel("location")
-    Emitter<LocationDTO> emitter;
+    @Channel("location") // <3>
+    Emitter<LocationDTO> emitter; // <2>
+    // end::global[]
 
+    // tag::qute[]
     private final Template page;
 
     public SomePage(Template page) {
@@ -38,26 +36,36 @@ public class SomePage {
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get(@QueryParam("name") String name) {
-        return page.data("name", name);
+    public TemplateInstance get() {
+        return page.instance();
     }
+    // end::qute[]
 
+    // tag::sender[]
     @POST
     public void locationSender(
-            @FormParam("name") String name,
+            @FormParam("name") String name, // <1>
             @FormParam("latitude") double latitude,
             @FormParam("longitude") double longitude
     ) {
-        String topic = baseTopic + name;
+        String topic = baseTopic + name; // <2>
 
-        LocationDTO locationDTO = new LocationDTO("location", latitude, longitude, name);
+        LocationDTO locationDTO = new LocationDTO(
+                "location", // typ
+                latitude,
+                longitude,
+                name
+        );
 
-        SendingMqttMessageMetadata metadata = new SendingMqttMessageMetadata(topic, MqttQoS.AT_LEAST_ONCE, true);
+        SendingMqttMessageMetadata metadata = new SendingMqttMessageMetadata( // <3>
+                topic,                  // topic
+                MqttQoS.AT_LEAST_ONCE,  // Qos level (1)
+                true                    // isRetain, gibt an ob die Nachricht permanent ist
+        );
 
-        MqttMessage<LocationDTO> message = MqttMessage.of(metadata, locationDTO);
+        MqttMessage<LocationDTO> message = MqttMessage.of(metadata, locationDTO); // <4>
 
         emitter.send(message);
-
     }
-
+    // end::sender[]
 }
