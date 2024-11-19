@@ -68,7 +68,7 @@ TIP: Falls man nur an eine bestimmte Topic senden will: `mp.messaging.outgoing.l
 ====
 [,java]
 ----
-include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/entity/LocationDTO.java[]
+include::../../project/senderMQTT/src/main/java/at/htl/leonding/entity/LocationDTO.java[]
 ----
 ====
 
@@ -76,7 +76,7 @@ NOTE: Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klass
 
 [,java]
 ----
-include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
+include::../project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
 ----
 
 <1> Wir holen uns die Basis für unsere Topic aus den Configs
@@ -87,7 +87,7 @@ Zum Versenden der Daten nutzen wir eine Methode, die über einen REST-Endpunkt a
 
 [,java]
 ----
-include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=sender]
+include::/project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=sender]
 ----
 
 <1> Der Endpunkt wird von einem HTML Form aufgerufen, daher haben wir 3 ``@FormParam``'s
@@ -112,7 +112,7 @@ import io.smallrye.reactive.messaging.mqtt.SendingMqttMessageMetadata;
 ====
 [,java]
 ----
-include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
+include::./project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
 ----
 ====
 
