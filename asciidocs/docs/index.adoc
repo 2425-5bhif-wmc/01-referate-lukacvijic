@@ -76,7 +76,7 @@ NOTE: Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klass
 
 [,java]
 ----
-include::../project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
+include::https://github.com/2425-5bhif-wmc/01-referate-lukacvijic/blob/main/project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
 ----
 
 <1> Wir holen uns die Basis für unsere Topic aus den Configs
@@ -87,7 +87,7 @@ Zum Versenden der Daten nutzen wir eine Methode, die über einen REST-Endpunkt a
 
 [,java]
 ----
-include::/project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=sender]
+include::https://github.com/2425-5bhif-wmc/01-referate-lukacvijic/blob/main/project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=sender]
 ----
 
 <1> Der Endpunkt wird von einem HTML Form aufgerufen, daher haben wir 3 ``@FormParam``'s
@@ -112,7 +112,7 @@ import io.smallrye.reactive.messaging.mqtt.SendingMqttMessageMetadata;
 ====
 [,java]
 ----
-include::./project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
+include::https://github.com/2425-5bhif-wmc/01-referate-lukacvijic/blob/main/project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
 ----
 ====
 
@@ -121,7 +121,7 @@ include::./project/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qu
 ====
 [,html]
 ----
-include::{includedir}/senderMQTT/src/main/resources/templates/page.qute.html[]
+include::https://github.com/2425-5bhif-wmc/01-referate-lukacvijic/blob/main/project/senderMQTT/src/main/resources/templates/page.qute.html[]
 ----
 ====
 
