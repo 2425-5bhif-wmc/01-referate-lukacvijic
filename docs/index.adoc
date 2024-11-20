@@ -1,0 +1,140 @@
+= Getting started
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:toc:
+:source-highlighter: rouge
+
+ifdef::env-ide[]
+:includedir: ../../project
+endif::[]
+ifndef::env-ide[]
+:includedir: ./project
+endif::[]
+
+== MQTT
+
+=== Sender
+
+Die Sender Applikation ist eine `Quarkus`-Anwendung, die unter anderem auch Qute nutzt.
+
+==== Dependencies
+
+[,xml]
+----
+<dependencies>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-messaging-mqtt</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-rest-qute</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-rest-jackson</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-arc</artifactId>
+    </dependency>
+</dependencies>
+----
+
+==== Config
+
+In der Config erstellen wir, einen Channel namens `location` und definieren diesen als `outgoing`, das heißt dass wir über diesen Channel Nachrichten an den Broker senden.
+
+NOTE: Config funktioniert nur für den MQTT-Broker der Schule
+
+[,properties]
+----
+quarkus.http.port=8080
+quarkus.package.type=uber-jar
+
+base.topic=owntracks/custom/ #<.>
+
+mp.messaging.outgoing.location.connector=smallrye-mqtt
+mp.messaging.outgoing.location.host=10.191.112.90 #<.>
+mp.messaging.outgoing.location.port=1883
+
+mp.messaging.outgoing.location.username=student
+mp.messaging.outgoing.location.password=passme
+----
+
+<.> Wir definieren keine fixe topic, da wir diese im Code dynamisch bestimmen
+<.> Host zu "vm90.htl-leonding.ac.at" ändern, falls das Projekt außerhalb der Leocloud läuft
+
+TIP: Falls man nur an eine bestimmte Topic senden will: `mp.messaging.outgoing.location.topic=...`
+
+=== Code
+
+.Code für das DTO
+[%collapsible]
+====
+[,java]
+----
+include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/entity/LocationDTO.java[]
+----
+====
+
+NOTE: Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von Qute
+
+[,java]
+----
+include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
+----
+
+<1> Wir holen uns die Basis für unsere Topic aus den Configs
+<2> Wir injizieren einen Emitter, den wir verwenden werden, um Nachrichten zu versenden
+<3> Der Emitter sendet über den Channel `location`, den wir in der Config konfiguriert haben
+
+Zum Versenden der Daten nutzen wir eine Methode, die über einen REST-Endpunkt aufgerufen wird.
+
+[,java]
+----
+include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=sender]
+----
+
+<1> Der Endpunkt wird von einem HTML Form aufgerufen, daher haben wir 3 ``@FormParam``'s
+<2> Erstellen des Pfades für die Topic, als Beispiel: `owntracks/custom/Luka`
+<3> In den Metadaten können wir die Topic bestimmen, daher konnte man diesen Schritt in der Config-Datei weglassen
+<4> Kombination von Metadaten und Daten zu einer MqttMessage
+
+
+.Good to know: Imports
+[%collapsible]
+====
+[,java]
+----
+import io.netty.handler.codec.mqtt.MqttQoS;
+import io.smallrye.reactive.messaging.mqtt.MqttMessage;
+import io.smallrye.reactive.messaging.mqtt.SendingMqttMessageMetadata;
+----
+====
+
+.Qute
+[%collapsible]
+====
+[,java]
+----
+include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
+----
+====
+
+.Frontend
+[%collapsible]
+====
+[,html]
+----
+include::{includedir}/senderMQTT/src/main/resources/templates/page.qute.html[]
+----
+====
+
+=== Receiver
+
+==== Config
+
+== Kafka
+
+
