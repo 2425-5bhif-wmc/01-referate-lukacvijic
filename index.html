@@ -674,7 +674,66 @@ Falls man nur an eine bestimmte Topic senden will: <code>mp.messaging.outgoing.l
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="java"><span class="nc">Unresolved</span> <span class="n">directive</span> <span class="n">in</span> <span class="n">index</span><span class="o">.</span><span class="na">adoc</span> <span class="o">-</span> <span class="nl">include:</span><span class="o">:</span><span class="n">project</span><span class="o">/</span><span class="n">senderMQTT</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">at</span><span class="o">/</span><span class="n">htl</span><span class="o">/</span><span class="n">leonding</span><span class="o">/</span><span class="n">entity</span><span class="o">/</span><span class="nc">LocationDTO</span><span class="o">.</span><span class="na">java</span><span class="o">[]</span></code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">at.htl.leonding.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.annotation.JsonProperty</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LocationDTO</span> <span class="o">{</span>
+
+    <span class="nd">@JsonProperty</span><span class="o">(</span><span class="s">"_type"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">type</span><span class="o">;</span>
+    <span class="nd">@JsonProperty</span><span class="o">(</span><span class="s">"lat"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">lat</span><span class="o">;</span>
+    <span class="nd">@JsonProperty</span><span class="o">(</span><span class="s">"lon"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">lon</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">tid</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LocationDTO</span><span class="o">(</span><span class="nc">String</span> <span class="n">type</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lon</span><span class="o">,</span> <span class="nc">String</span> <span class="n">tid</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lat</span> <span class="o">=</span> <span class="n">lat</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lon</span> <span class="o">=</span> <span class="n">lon</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">tid</span> <span class="o">=</span> <span class="n">tid</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">LocationDTO</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="c1">// region getter und setter</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getType</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">type</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setType</span><span class="o">(</span><span class="nc">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getLat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">lat</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLat</span><span class="o">(</span><span class="kt">double</span> <span class="n">lat</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lat</span> <span class="o">=</span> <span class="n">lat</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getLon</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">lon</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLon</span><span class="o">(</span><span class="kt">double</span> <span class="n">lon</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lon</span> <span class="o">=</span> <span class="n">lon</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTid</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">tid</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTid</span><span class="o">(</span><span class="nc">String</span> <span class="n">tid</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">tid</span> <span class="o">=</span> <span class="n">tid</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// endregion</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -693,7 +752,12 @@ Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="java"><span class="nc">Unresolved</span> <span class="n">directive</span> <span class="n">in</span> <span class="n">index</span><span class="o">.</span><span class="na">adoc</span> <span class="o">-</span> <span class="nl">include:</span><span class="o">:</span><span class="n">project</span><span class="o">/</span><span class="n">senderMQTT</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">at</span><span class="o">/</span><span class="n">htl</span><span class="o">/</span><span class="n">leonding</span><span class="o">/</span><span class="nc">SomePage</span><span class="o">.</span><span class="na">java</span><span class="o">[</span><span class="n">tag</span><span class="o">=</span><span class="n">global</span><span class="o">]</span></code></pre>
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@ConfigProperty</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"base.topic"</span><span class="o">)</span>
+    <span class="nc">String</span> <span class="n">baseTopic</span><span class="o">;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="nd">@Inject</span>
+    <span class="nd">@Channel</span><span class="o">(</span><span class="s">"location"</span><span class="o">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="nc">Emitter</span><span class="o">&lt;</span><span class="nc">LocationDTO</span><span class="o">&gt;</span> <span class="n">emitter</span><span class="o">;</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -717,7 +781,31 @@ Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="java"><span class="nc">Unresolved</span> <span class="n">directive</span> <span class="n">in</span> <span class="n">index</span><span class="o">.</span><span class="na">adoc</span> <span class="o">-</span> <span class="nl">include:</span><span class="o">:</span><span class="n">project</span><span class="o">/</span><span class="n">senderMQTT</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">at</span><span class="o">/</span><span class="n">htl</span><span class="o">/</span><span class="n">leonding</span><span class="o">/</span><span class="nc">SomePage</span><span class="o">.</span><span class="na">java</span><span class="o">[</span><span class="n">tag</span><span class="o">=</span><span class="n">sender</span><span class="o">]</span></code></pre>
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@POST</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">locationSender</span><span class="o">(</span>
+            <span class="nd">@FormParam</span><span class="o">(</span><span class="s">"name"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="nd">@FormParam</span><span class="o">(</span><span class="s">"latitude"</span><span class="o">)</span> <span class="kt">double</span> <span class="n">latitude</span><span class="o">,</span>
+            <span class="nd">@FormParam</span><span class="o">(</span><span class="s">"longitude"</span><span class="o">)</span> <span class="kt">double</span> <span class="n">longitude</span>
+    <span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">topic</span> <span class="o">=</span> <span class="n">baseTopic</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+
+        <span class="nc">LocationDTO</span> <span class="n">locationDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LocationDTO</span><span class="o">(</span>
+                <span class="s">"location"</span><span class="o">,</span> <span class="c1">// typ</span>
+                <span class="n">latitude</span><span class="o">,</span>
+                <span class="n">longitude</span><span class="o">,</span>
+                <span class="n">name</span>
+        <span class="o">);</span>
+
+        <span class="nc">SendingMqttMessageMetadata</span> <span class="n">metadata</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SendingMqttMessageMetadata</span><span class="o">(</span> <i class="conum" data-value="3"></i><b>(3)</b>
+                <span class="n">topic</span><span class="o">,</span>                  <span class="c1">// topic</span>
+                <span class="nc">MqttQoS</span><span class="o">.</span><span class="na">AT_LEAST_ONCE</span><span class="o">,</span>  <span class="c1">// Qos level (1)</span>
+                <span class="kc">true</span>                    <span class="c1">// isRetain, gibt an ob die Nachricht permanent ist</span>
+        <span class="o">);</span>
+
+        <span class="nc">MqttMessage</span><span class="o">&lt;</span><span class="nc">LocationDTO</span><span class="o">&gt;</span> <span class="n">message</span> <span class="o">=</span> <span class="nc">MqttMessage</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">metadata</span><span class="o">,</span> <span class="n">locationDTO</span><span class="o">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+
+        <span class="n">emitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -757,7 +845,17 @@ Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="java"><span class="nc">Unresolved</span> <span class="n">directive</span> <span class="n">in</span> <span class="n">index</span><span class="o">.</span><span class="na">adoc</span> <span class="o">-</span> <span class="nl">include:</span><span class="o">:</span><span class="n">project</span><span class="o">/</span><span class="n">senderMQTT</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">at</span><span class="o">/</span><span class="n">htl</span><span class="o">/</span><span class="n">leonding</span><span class="o">/</span><span class="nc">SomePage</span><span class="o">.</span><span class="na">java</span><span class="o">[</span><span class="n">tag</span><span class="o">=</span><span class="n">qute</span><span class="o">]</span></code></pre>
+<pre class="rouge highlight"><code data-lang="java">    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Template</span> <span class="n">page</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SomePage</span><span class="o">(</span><span class="nc">Template</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">page</span> <span class="o">=</span> <span class="n">requireNonNull</span><span class="o">(</span><span class="n">page</span><span class="o">,</span> <span class="s">"page is required"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GET</span>
+    <span class="nd">@Produces</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">TEXT_HTML</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">TemplateInstance</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">page</span><span class="o">.</span><span class="na">instance</span><span class="o">();</span>
+    <span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -767,7 +865,117 @@ Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="html">Unresolved directive in index.adoc - include::project/senderMQTT/src/main/resources/templates/page.qute.html[]</code></pre>
+<pre class="rouge highlight"><code data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>MQTT-Sender<span class="nt">&lt;/title&gt;</span>
+
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"</span> <span class="na">integrity=</span><span class="s">"sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="</span> <span class="na">crossorigin=</span><span class="s">""</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"</span> <span class="na">integrity=</span><span class="s">"sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="</span> <span class="na">crossorigin=</span><span class="s">""</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nf">#map</span><span class="p">{</span>
+            <span class="nl">height</span><span class="p">:</span> <span class="m">90vh</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nf">#container</span> <span class="p">{</span>
+            <span class="nl">height</span><span class="p">:</span> <span class="m">8vh</span><span class="p">;</span>
+
+            <span class="nl">margin</span><span class="p">:</span> <span class="m">1vh</span> <span class="m">1vw</span> <span class="m">1vh</span> <span class="m">1vw</span><span class="p">;</span>
+
+            <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+
+            <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+            <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nt">html</span><span class="o">,</span> <span class="nt">body</span><span class="p">{</span>
+            <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+            <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+        <span class="p">}</span>
+
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"locationForm"</span> <span class="na">action=</span><span class="s">"/some-page"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"name"</span><span class="nt">&gt;</span>Enter your name:<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">required</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"latitude"</span> <span class="na">name=</span><span class="s">"latitude"</span> <span class="na">required</span> <span class="na">readonly</span> <span class="na">placeholder=</span><span class="s">"latitude"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"longitude"</span> <span class="na">name=</span><span class="s">"longitude"</span> <span class="na">required</span> <span class="na">readonly</span> <span class="na">placeholder=</span><span class="s">"longitude"</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Send location!<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"map"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+    <span class="kd">let</span> <span class="nx">map</span><span class="p">;</span> <span class="c1">// Declare map variable globally</span>
+    <span class="kd">let</span> <span class="nx">marker</span><span class="p">;</span> <span class="c1">// Declare marker variable globally</span>
+
+    <span class="c1">// Initialize the map</span>
+    <span class="kd">function</span> <span class="nf">initMap</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="dl">'</span><span class="s1">map</span><span class="dl">'</span><span class="p">).</span><span class="nf">setView</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// Initialize map with a default view</span>
+
+        <span class="nx">L</span><span class="p">.</span><span class="nf">tileLayer</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://tile.openstreetmap.org/</span><span class="se">\</span><span class="s1">{z}</span><span class="se">\</span><span class="s1">/</span><span class="se">\</span><span class="s1">{x}</span><span class="se">\</span><span class="s1">/</span><span class="se">\</span><span class="s1">{y}</span><span class="se">\</span><span class="s1">.png</span><span class="dl">'</span><span class="p">).</span><span class="nf">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+
+        <span class="nx">map</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="nx">onMapClick</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nf">onMapClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Get latitude and longitude from click event</span>
+        <span class="kd">const</span> <span class="nx">lat</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">.</span><span class="nx">lat</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">lon</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">latlng</span><span class="p">.</span><span class="nx">lng</span><span class="p">;</span>
+
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">lat: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">lat</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">lon: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">lon</span><span class="p">);</span>
+
+        <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">latitude</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lat</span><span class="p">;</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">longitude</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lon</span><span class="p">;</span>
+
+        <span class="c1">// If the marker is not yet created, create it</span>
+        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">marker</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">marker</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nf">marker</span><span class="p">([</span><span class="nx">lat</span><span class="p">,</span> <span class="nx">lon</span><span class="p">]).</span><span class="nf">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">bindPopup</span><span class="p">(</span><span class="dl">'</span><span class="s1">You clicked here!</span><span class="dl">'</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">openPopup</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Move the existing marker to the new position</span>
+            <span class="nx">marker</span><span class="p">.</span><span class="nf">setLatLng</span><span class="p">([</span><span class="nx">lat</span><span class="p">,</span> <span class="nx">lon</span><span class="p">]).</span><span class="nf">update</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">locationForm</span><span class="dl">'</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">submit</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Prevent the default form submission</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+
+        <span class="c1">// Check if name is filled</span>
+        <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">lat</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">latitude</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">lon</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">longitude</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+
+        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Please enter your name.</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span> <span class="c1">// Stop form submission if name is empty</span>
+        <span class="p">}</span>
+
+        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">lat</span> <span class="o">||</span> <span class="o">!</span><span class="nx">lon</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Please click on the map to set a location before submitting.</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span> <span class="c1">// Stop form submission if lat or lon are missing</span>
+        <span class="p">}</span>
+
+        <span class="c1">// If all checks pass, submit the form</span>
+        <span class="k">this</span><span class="p">.</span><span class="nf">submit</span><span class="p">();</span>
+    <span class="p">});</span>
+
+    <span class="nf">initMap</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -791,7 +999,7 @@ Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-20 16:45:38 UTC
+Last updated 2024-11-20 16:47:00 UTC
 </div>
 </div>
 </body>
