@@ -23,15 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Convert AsciiDocs to HTML
-        run: |
-          sudo ${{ env.INPUTPATH }}/scripts/docker-convert.sh ${{ env.INPUTPATH }} ${{ env.SLIDES }}
-          tree ${{ env.INPUTPATH }}
-
       - name: Include Project Folder
         run: |
           # Copy the project folder into the asciidocs folder
           cp -r ${{ env.PROJECTPATH }} ${{ env.INPUTPATH }}/docs/project
+          tree ${{ env.INPUTPATH }}
+
+      - name: Convert AsciiDocs to HTML
+        run: |
+          sudo ${{ env.INPUTPATH }}/scripts/docker-convert.sh ${{ env.INPUTPATH }} ${{ env.SLIDES }}
           tree ${{ env.INPUTPATH }}
 
       - name: Deploy to GitHub Pages
@@ -39,4 +39,3 @@ jobs:
         with:
           branch: ${{ env.BRANCH }}
           folder: ${{ env.INPUTPATH }}
-
