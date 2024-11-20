@@ -28,19 +28,15 @@ jobs:
           sudo ${{ env.INPUTPATH }}/scripts/docker-convert.sh ${{ env.INPUTPATH }} ${{ env.SLIDES }}
           tree ${{ env.INPUTPATH }}
 
-          - name: Prepare Deployment Folder
-            run: |
-              # Create a deployment directory
-              mkdir deploy
-              
-              # Move converted asciidocs content to the root of the deploy directory
-              cp -r ${{ env.INPUTPATH }}/* deploy/
-              
-              # Copy the project folder into the deploy directory as a subfolder
-              cp -r ${{ env.PROJECTPATH }} deploy/project
+      - name: Include Project Folder
+        run: |
+          # Copy the project folder into the asciidocs folder
+          cp -r ${{ env.PROJECTPATH }} ${{ env.INPUTPATH }}/project
+          tree ${{ env.INPUTPATH }}
 
-          - name: Deploy to GitHub Pages
-            uses: JamesIves/github-pages-deploy-action@v4
-            with:
-              branch: ${{ env.BRANCH }}
-              folder: deploy
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          branch: ${{ env.BRANCH }}
+          folder: ${{ env.INPUTPATH }}
+
