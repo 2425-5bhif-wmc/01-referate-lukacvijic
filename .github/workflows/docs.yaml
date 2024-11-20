@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       INPUTPATH: asciidocs
+      PROJECTPATH: project
       SLIDES: true
       BRANCH: gh-pages
     steps:
@@ -42,4 +43,4 @@ jobs:
           # GITHUB_TOKEN: ${{ github.TOKEN }}
           #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ env.BRANCH }}
-          folder: ${{ env.INPUTPATH }}
+          folder: .

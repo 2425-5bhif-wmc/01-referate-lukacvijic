@@ -3,7 +3,13 @@ ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :toc:
 :source-highlighter: rouge
+
+ifdef::env-ide[]
 :includedir: ../../project
+endif::[]
+ifndef::env-ide[]
+:includedir: ../project
+endif::[]
 
 == MQTT
 
