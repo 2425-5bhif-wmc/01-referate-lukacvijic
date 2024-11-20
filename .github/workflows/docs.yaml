@@ -22,25 +22,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      #- name: install packages
-      #  uses: awalsh128/cache-apt-pkgs-action@latest
-      #  with:
-      #    packages:  asciidoctor graphviz
-      #    version: 1.0
-
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3
-
-      - name: run docker
+      - name: Prepare Deployment Folder
         run: |
-          sudo ${{ env.INPUTPATH }}/scripts/docker-convert.sh ${{ env.INPUTPATH }} ${{ env.SLIDES }}
-          tree
-
+          # Create a deployment directory
+          mkdir deploy
+          
+          # Move asciidocs content to the root of the deploy directory
+          cp -r ${{ env.INPUTPATH }}/* deploy/
+          
+          # Copy the project folder into the deploy directory as a subfolder
+          cp -r ${{ env.PROJECTPATH }} deploy/project
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # GITHUB_TOKEN: ${{ github.TOKEN }}
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ env.BRANCH }}
-          folder: .
+          folder: deploy
