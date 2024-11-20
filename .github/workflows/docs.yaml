@@ -7,6 +7,7 @@ on:
     paths:
       - asciidocs/**
       - project/**
+      - .github/**
   workflow_dispatch:
 permissions:
   contents: write
@@ -22,19 +23,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare Deployment Folder
+      - name: Convert AsciiDocs to HTML
         run: |
-          # Create a deployment directory
-          mkdir deploy
-          
-          # Move asciidocs content to the root of the deploy directory
-          cp -r ${{ env.INPUTPATH }}/* deploy/
-          
-          # Copy the project folder into the deploy directory as a subfolder
-          cp -r ${{ env.PROJECTPATH }} deploy/project
+          sudo ${{ env.INPUTPATH }}/scripts/docker-convert.sh ${{ env.INPUTPATH }} ${{ env.SLIDES }}
+          tree ${{ env.INPUTPATH }}
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: ${{ env.BRANCH }}
-          folder: deploy
+          - name: Prepare Deployment Folder
+            run: |
+              # Create a deployment directory
+              mkdir deploy
+              
+              # Move converted asciidocs content to the root of the deploy directory
+              cp -r ${{ env.INPUTPATH }}/* deploy/
+              
+              # Copy the project folder into the deploy directory as a subfolder
+              cp -r ${{ env.PROJECTPATH }} deploy/project
+
+          - name: Deploy to GitHub Pages
+            uses: JamesIves/github-pages-deploy-action@v4
+            with:
+              branch: ${{ env.BRANCH }}
+              folder: deploy
