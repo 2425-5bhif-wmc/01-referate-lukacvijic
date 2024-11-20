@@ -31,7 +31,7 @@ jobs:
       - name: Include Project Folder
         run: |
           # Copy the project folder into the asciidocs folder
-          cp -r ${{ env.PROJECTPATH }} ${{ env.INPUTPATH }}/project
+          cp -r ${{ env.PROJECTPATH }} ${{ env.INPUTPATH }}/docs/project
           tree ${{ env.INPUTPATH }}
 
       - name: Deploy to GitHub Pages

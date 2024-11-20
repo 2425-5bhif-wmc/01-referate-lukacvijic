@@ -8,7 +8,7 @@ ifdef::env-ide[]
 :includedir: ../../project
 endif::[]
 ifndef::env-ide[]
-:includedir: /project
+:includedir: project
 endif::[]
 
 == MQTT
