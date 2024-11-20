@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Stats</title>
+</head>
+<body>
+<h1>PC Stats</h1>
+<pre id="stats"></pre>
+
+<script>
+    const statsElement = document.getElementById('stats');
+
+    let evtSource = new EventSource("http://localhost:8082/stats/stream");
+    evtSource.onmessage = function(e) {
+        statsElement.textContent = e.data;
+    };
+</script>
+</body>
+</html>

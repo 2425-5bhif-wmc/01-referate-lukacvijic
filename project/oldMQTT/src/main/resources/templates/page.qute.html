@@ -1,0 +1,80 @@
+{@java.util.ArrayList<String> keys}
+{@java.util.HashMap tIds}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello {name ?: "Qute"}</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <style>
+        #map{
+            height: 100vh;
+        }
+
+        html, body{
+            overflow: hidden;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <label for="person">Choose a person:</label>
+    <select name="person" id="personSelect" onchange="checkSelection()">
+        <option value="">select</option>
+        {#each key in keys}
+            <option value="{key}">{key}</option>
+        {/each}
+    </select>
+
+    <div id="map"></div>
+
+    <script>
+        let tIds = {
+            {#each key in keys}
+            "{key}": "{tIds.get(key)}",
+            {/each}
+        };
+
+        let map; // Declare map variable globally
+        let marker; // Declare marker variable globally
+
+        // Initialize the map
+        function initMap() {
+            map = L.map('map').setView([0, 0], 2); // Initialize map with a default view
+            L.tileLayer('https://tile.openstreetmap.org/\{z}\/\{x}\/\{y}\.png').addTo(map);
+        }
+
+        // Change the marker position based on the selected person
+        function checkSelection() {
+            const selector = document.getElementById("personSelect").value; // Get the selected value
+
+            if (selector) {
+                const coordinates = tIds[selector].split(" "); // Split the coordinates string
+                const lat = parseFloat(coordinates[1]); // Convert to float
+                const lon = parseFloat(coordinates[0]); // Convert to float
+
+                // Update map view
+                map.setView([lat, lon], 13); // Change the map view
+
+                // If the marker is not yet created, create it
+                if (!marker) {
+                    marker = L.marker([lat, lon]).addTo(map)
+                        .bindPopup('Last Position')
+                        .openPopup();
+                } else {
+                    // Move the existing marker to the new position
+                    marker.setLatLng([lat, lon]).update();
+                }
+            }
+        }
+
+        initMap();
+    </script>
+
+</body>
+</html>
