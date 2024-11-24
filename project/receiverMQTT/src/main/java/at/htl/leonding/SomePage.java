@@ -10,7 +10,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
@@ -23,11 +22,15 @@ import static java.util.Objects.requireNonNull;
 @Path("/some-page")
 public class SomePage {
 
+    // tag::global[]
     @Inject
-    ObjectMapper mapper;
+    ObjectMapper mapper; // <.>
 
+    private final Map<String, String> tIdsMap = new HashMap<>();; // <.>
+    // end::global[]
+
+    // tag::qute[]
     private final Template page;
-    private final Map<String, String> tIdsMap = new HashMap<>();;
 
     public SomePage(Template page) {
         this.page = requireNonNull(page, "page is required");
@@ -38,19 +41,19 @@ public class SomePage {
     public TemplateInstance get() {
         return page.data("tIds", tIdsMap, "keys", tIdsMap.keySet().stream().toList());
     }
+    // end::qute[]
 
+    // tag::location[]
     @Incoming("location")
     public void receiveLocation(byte[] data){
         try {
-            LocationDTO myLocation = mapper.readValue(data, LocationDTO.class);
+            LocationDTO myLocation = mapper.readValue(data, LocationDTO.class); // <.>
 
             // sometimes the type is lwt and every other field is zero or null
             if(!Objects.equals(myLocation.getType(), "location") || myLocation.getTid() == null)
                 return;
 
-            Log.info(myLocation.getTid());
-
-            synchronized (tIdsMap) {
+            synchronized (tIdsMap) { // <.>
                 tIdsMap.put(myLocation.getTid(), String.format("%s %s", myLocation.getLon(), myLocation.getLat()));
             }
 
@@ -58,5 +61,5 @@ public class SomePage {
             Log.warn(e);
         }
     }
-
+    // end::location[]
 }
