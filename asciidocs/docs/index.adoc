@@ -1,5 +1,4 @@
 = Getting started
-ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :toc:
 :source-highlighter: rouge
@@ -11,16 +10,25 @@ ifndef::env-ide[]
 :includedir: project
 endif::[]
 
+ifdef::env-ide[]
+:imagesdir: ./images
+endif::[]
+
 == MQTT
 
 === Sender
 
-Die Sender Applikation ist eine `Quarkus`-Anwendung, die unter anderem auch Qute nutzt.
+Die Sender Applikation ist eine `Quarkus`-Anwendung, die unter anderem auch Qute nutzt. +
+Mit folgendem Aufbau:
+
+image::mqttSenderStructure.png[]
 
 ==== Dependencies
-
-[,xml]
+.pom.xml
+[,xml,]
 ----
+<!--[...]-->
+<!--nur ein Ausschnitt der dependencies, nicht die ganze pom-->
 <dependencies>
     <dependency>
         <groupId>io.quarkus</groupId>
@@ -39,11 +47,12 @@ Die Sender Applikation ist eine `Quarkus`-Anwendung, die unter anderem auch Qute
         <artifactId>quarkus-arc</artifactId>
     </dependency>
 </dependencies>
+<!--[...]-->
 ----
 
 ==== Config
 
-In der Config erstellen wir, einen Channel namens `location` und definieren diesen als `outgoing`, das heißt dass wir über diesen Channel Nachrichten an den Broker senden.
+In der Config erstellen wir, einen Channel namens `location` und definieren diesen als `outgoing`, das heißt, dass wir über diesen Channel Nachrichten an den Broker senden.
 
 NOTE: Config funktioniert nur für den MQTT-Broker der Schule
 
@@ -67,22 +76,24 @@ mp.messaging.outgoing.location.password=passme
 
 TIP: Falls man nur an eine bestimmte Topic senden will: `mp.messaging.outgoing.location.topic=...`
 
-=== Code
+==== Code
 
 .Code für das DTO
 [%collapsible]
 ====
+.LocationDTO
 [,java]
 ----
 include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/entity/LocationDTO.java[]
 ----
 ====
 
-NOTE: Der restliche Java-Code befindet sich in der vorgenerierten SomePage Klasse von Qute
-
+.SomePage
 [,java]
 ----
+    // [...]
 include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
+    // [...]
 ----
 
 <1> Wir holen uns die Basis für unsere Topic aus den Configs
@@ -91,16 +102,18 @@ include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag
 
 Zum Versenden der Daten nutzen wir eine Methode, die über einen REST-Endpunkt aufgerufen wird.
 
+.SomePage
 [,java]
 ----
+    // [...]
 include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=sender]
+    // [...]
 ----
 
 <1> Der Endpunkt wird von einem HTML Form aufgerufen, daher haben wir 3 ``@FormParam``'s
-<2> Erstellen des Pfades für die Topic, als Beispiel: `owntracks/custom/Luka`
+<2> Erstellen der Topic, als Beispiel: `owntracks/custom/Luka`
 <3> In den Metadaten können wir die Topic bestimmen, daher konnte man diesen Schritt in der Config-Datei weglassen
-<4> Kombination von Metadaten und Daten zu einer MqttMessage
-
+<4> Kombination von Metadaten und unserem DTO zu einer MqttMessage
 
 .Good to know: Imports
 [%collapsible]
@@ -113,18 +126,22 @@ import io.smallrye.reactive.messaging.mqtt.SendingMqttMessageMetadata;
 ----
 ====
 
-.Qute
+.Qute Template
 [%collapsible]
 ====
+.SomePage
 [,java]
 ----
+    // [...]
 include::{includedir}/senderMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
+    // [...]
 ----
 ====
 
 .Frontend
 [%collapsible]
 ====
+.page.qute.html
 [,html]
 ----
 include::{includedir}/senderMQTT/src/main/resources/templates/page.qute.html[]
@@ -133,8 +150,128 @@ include::{includedir}/senderMQTT/src/main/resources/templates/page.qute.html[]
 
 === Receiver
 
+Die Empfänger Applikation ist eine `Quarkus`-Anwendung, die unter anderem auch Qute nutzt. +
+Mit folgendem Aufbau:
+
+image::mqttReceiverStructure.png[]
+
+==== Dependencies
+.pom.xml
+[,xml,]
+----
+<!--[...]-->
+<!--nur ein Ausschnitt der dependencies, nicht die ganze pom-->
+<dependencies>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-messaging-mqtt</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-rest-qute</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-rest-jackson</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-arc</artifactId>
+    </dependency>
+</dependencies>
+<!--[...]-->
+----
+
 ==== Config
+In der Config erstellen wir, einen Channel namens `location` und definieren diesen als `incoming`, das heißt, dass wir über diesen Channel Nachrichten vom Broker erhalten.
+
+NOTE: Config funktioniert nur für den MQTT-Broker der Schule
+
+[,properties]
+----
+quarkus.http.port=8081
+quarkus.package.type=uber-jar
+
+mp.messaging.incoming.location.connector=smallrye-mqtt
+mp.messaging.incoming.location.host=vm90.htl-leonding.ac.at
+mp.messaging.incoming.location.port=1883
+mp.messaging.incoming.location.topic=owntracks/custom/# # <.>
+
+mp.messaging.incoming.location.qos=1 # <.>
+
+mp.messaging.incoming.location.username=student
+mp.messaging.incoming.location.password=passme
+----
+
+<.> Im Vergleich zur vorherigen config, bestimmen wir hier eine topic, wobei wir eine `Wildcard` verwenden, das heißt, wir bekommen alle topics, die denselben Anfang haben, zum Beispiel: `owntracks/custom/Luka` oder `owntracks/custom/Walter`
+<.> Beim Sender mussten wir das Qos-Level im Code bestimmen und hier machen wir es in der config
+
+TIP: Falls man nur an eine bestimmte Topic erhalten will: `mp.messaging.incoming.location.topic=owntracks/custom/Luka`
+
+.Mehr zu Wildcards
+[%collapsible]
+====
+Es gibt 2 verschiedene Wildcards:
+
+* `+`
+** Diese Wildcard findet nur topics die sich auf der selben Ebene befinden, +
+wie zum Beispiel: owntracks/custom/luka
+* `#`
+** Diese Wildcard findet auch topics, die mehrere Ebenen tief sind, +
+wie zum Beispiel: owntracks/custom/groupOne/luka
+====
+
+==== Code
+
+NOTE: Der Code für das DTO kann von oben kopiert werden
+
+.SomePage
+[,java]
+----
+    // [...]
+include::{includedir}/receiverMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=global]
+    // [...]
+----
+
+<1> Wir injizieren einen mapper, um die eintreffenden byte[] zu unser DTOs mappen zu können
+<2> Wir erstellen eine Hashmap, die als Key die Namen verwendet und als value dazu die Koordinaten hält
+
+.SomePage
+[,java]
+----
+    // [...]
+include::{includedir}/receiverMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=location]
+    // [...]
+----
+
+<1> Das byte[] wird zu unserem LocatinDTO gemappt
+<2> Die Methode, die das Qute-Template erstellt und die Methode zum Empfangen der Mqtt-Nachrichten laufen auf asynchron auf 2 verschiedenen Threads, daher braucht man das `synchronized` um die Hashmap zu befüllen, sonst hat man im Frontend immer eine leere Hashmap
+
+Mehr zu synchronized: https://www.baeldung.com/java-synchronized#the-synchronized-keyword[hier]
+
+
+.Qute Template
+[%collapsible]
+====
+.SomePage
+[,java]
+----
+    // [...]
+include::{includedir}/receiverMQTT/src/main/java/at/htl/leonding/SomePage.java[tag=qute]
+    // [...]
+----
+====
+
+.Frontend
+[%collapsible]
+====
+.page.qute.html
+[,html]
+----
+include::{includedir}/receiverMQTT/src/main/resources/templates/page.qute.html[]
+----
+====
 
 == Kafka
 
-
+CAUTION: coming soon...
