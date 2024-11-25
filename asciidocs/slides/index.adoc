@@ -15,22 +15,22 @@ Fokus auf:
 * Publish-Subscribe (Pub/Sub): Mehrere Empfänger können Nachrichten von einem Publisher abonnieren.
 
 [.font-xx-large]
+== Point-to-Point (REST)
+
+[.big-image]
+image::rest2.png[]
+
+[.font-xx-large]
 == MQTT
 
 [.big-image]
 image::mqtt.png[]
 
 [.font-xx-large]
-== Point-to-Point (REST)
-
-[.big-image]
-image::rest.png[]
-
-[.font-xx-large]
 == Kafka
 
 [.big-image]
-image::kafka.png[]
+image::kafka2.png[]
 
 [.font-xx-large]
 == Unterschiede
@@ -47,7 +47,7 @@ image::kafka.png[]
 |Verteiltes Streaming-Protokoll
 
 |Einsatzbereich
-|IoT, ressourcenarme Geräte, industrielle Anlagen (Ölrohre)
+|IoT, ressourcenarme Geräte, industrielle Anlagen (Ölrohrleitungen)
 |Große Datenströme, Datenanalyse (Netflix/Spotify: Logs)
 
 |Nachrichtenhaltung
@@ -80,6 +80,11 @@ HiveMQ
 
 [.font-xx-large]
 == Live Demo
+
+[.font-xx-large]
+== Channels
+
+image::channels.png[]
 
 [.font-xx-large]
 == W-Fragen
