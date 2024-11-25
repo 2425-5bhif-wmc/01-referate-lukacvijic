@@ -84,6 +84,7 @@ HiveMQ
 [.font-xx-large]
 == Channels
 
+[.big-image]
 image::channels.png[]
 
 [.font-xx-large]
