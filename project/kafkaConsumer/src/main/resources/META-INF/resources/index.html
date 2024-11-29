@@ -12,9 +12,9 @@
 <script>
     const statsElement = document.getElementById('stats');
 
-    let evtSource = new EventSource("http://localhost:8082/stats/stream");
+    let evtSource = new EventSource("http://localhost:8082/stats/stream"); // <.>
     evtSource.onmessage = function(e) {
-        statsElement.textContent = e.data;
+        statsElement.textContent = e.data; // <.>
     };
 </script>
 </body>

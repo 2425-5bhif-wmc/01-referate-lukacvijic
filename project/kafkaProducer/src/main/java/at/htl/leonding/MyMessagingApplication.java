@@ -16,16 +16,19 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class MyMessagingApplication {
 
+    // tag::global[]
     @Inject
     @Channel("stats-out")
-    Emitter<String> emitter;
+    Emitter<String> emitter; // <.>
 
     void onStart(@Observes StartupEvent ev) {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); // <.>
 
-        scheduler.scheduleAtFixedRate(this::sendStats, 0, 5, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::sendStats, 0, 5, TimeUnit.SECONDS); // <.>
     }
+    // end::global[]
 
+    // tag::sendstats[]
     public void sendStats() {
         OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
@@ -54,4 +57,6 @@ public class MyMessagingApplication {
                 formattedCpuLoad, formattedTotalMemory, formattedFreeMemory, formattedUsedMemory
         ));
     }
+
+    // end::sendstats[]
 }

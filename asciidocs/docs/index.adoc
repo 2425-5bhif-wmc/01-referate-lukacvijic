@@ -14,6 +14,10 @@ ifdef::env-ide[]
 :imagesdir: ./images
 endif::[]
 
+== Einführung
+
+-> https://2425-5bhif-wmc.github.io/01-referate-lukacvijic/slides/[Slides]
+
 == MQTT
 
 === Sender
@@ -56,6 +60,7 @@ In der Config erstellen wir, einen Channel namens `location` und definieren dies
 
 NOTE: Config funktioniert nur für den MQTT-Broker der Schule
 
+.application.properties
 [,properties]
 ----
 quarkus.http.port=8080
@@ -187,6 +192,7 @@ In der Config erstellen wir, einen Channel namens `location` und definieren dies
 
 NOTE: Config funktioniert nur für den MQTT-Broker der Schule
 
+.application.properties
 [,properties]
 ----
 quarkus.http.port=8081
@@ -275,3 +281,175 @@ include::{includedir}/receiverMQTT/src/main/resources/templates/page.qute.html[]
 == Kafka
 
 CAUTION: coming soon...
+
+=== Sender
+Die Sender Applikation ist eine `Quarkus`-Anwendung.
+Mit folgendem Aufbau:
+
+image::kafkaSenderStructure.png[]
+
+==== Dependencies
+.pom.xml
+[,xml,]
+----
+<!--[...]-->
+<!--nur ein Ausschnitt der dependencies, nicht die ganze pom-->
+<dependencies>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-arc</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-messaging-kafka</artifactId>
+    </dependency>
+</dependencies>
+<!--[...]-->
+----
+
+==== Config
+
+.application.properties
+[,properties]
+----
+quarkus.http.port=8083
+quarkus.package.jar.type=uber-jar
+
+# Outgoing channel (producing messages to Kafka)
+mp.messaging.outgoing.stats-out.connector=smallrye-kafka
+mp.messaging.outgoing.stats-out.topic=stats # <.>
+----
+
+<.> Wir definieren den Channel `stats-out` über den wir Daten an die Topic `stats` schicken
+
+NOTE: Wir definieren keine Server Adresse, da Kafka einen default Broker für uns startet
+
+.Genaueres
+[%collapsible]
+====
+Beim Starten von der Kafka App
+
+[.command]
+[source]
+----
+INFO  [io.qua.kaf.cli.dep.DevServicesKafkaProcessor] (build-7)
+Dev Services for Kafka started.
+Other Quarkus applications in dev mode will find the broker automatically.
+For Quarkus applications in production mode, you can connect to this by starting your application with
+-Dkafka.bootstrap.servers=OUTSIDE://localhost:32773
+----
+
+[.wide-image]
+image::brokerInDocker.png[]
+====
+
+==== Code
+
+.MyMessagingApplication
+[,java]
+----
+    // [...]
+include::{includedir}/kafkaProducer/src/main/java/at/htl/leonding/MyMessagingApplication.java[tag=global]
+    // [...]
+----
+
+<.> Wir injizieren einen Emitter mit unserem definierten Channel
+<.> Wir erstellen einen neuen Threadpool mit einem Thread
+<.> Wir rufen die Methode `sendStats` alle 5 Sekunden auf
+
+
+.MyMessagingApplication
+[,java]
+----
+    // [...]
+include::{includedir}/kafkaProducer/src/main/java/at/htl/leonding/MyMessagingApplication.java[tag=sendstats]
+    // [...]
+----
+
+=== Receiver
+Die Empfänger Applikation ist eine `Quarkus`-Anwendung. +
+Mit folgendem Aufbau:
+
+[.wide-image]
+image::kafkaReceiverStructure.png[]
+
+==== Dependencies
+
+.pom.xml
+[,xml,]
+----
+<!--[...]-->
+<!--nur ein Ausschnitt der dependencies, nicht die ganze pom-->
+<dependencies>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-messaging-kafka</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-rest-jackson</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-arc</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.reactivex.rxjava3</groupId>
+        <artifactId>rxjava</artifactId>
+    <version>3.1.9</version>
+    </dependency>
+</dependencies>
+<!--[...]-->
+----
+
+==== Config
+
+.application.properties
+[,properties]
+----
+quarkus.http.port=8082
+quarkus.package.jar.type=uber-jar
+
+# Incoming channel (consuming messages from Kafka)
+mp.messaging.incoming.stats-in.connector=smallrye-kafka
+mp.messaging.incoming.stats-in.topic=stats # <.>
+mp.messaging.incoming.stats-in.auto.offset.reset=latest # <.>
+----
+
+<.> Wir definieren den Channel `stats-in` über den wir Daten von der Topic `stats` erhalten
+<.> Wir definieren den Empfänger so, dass er sich die neusten Werte holt, `earliest` würde alle Werte der Topic abrufen
+
+==== Code
+
+.MyMessagingApplication
+[,java]
+----
+    // [...]
+include::{includedir}/kafkaConsumer/src/main/java/at/htl/leonding/MyMessagingApplication.java[tag=global]
+    // [...]
+----
+
+<.> Wir erstellen ein global PublishSubject variable, auf die wir uns später subscriben können
+<.> Bei neuen Daten über den Channel `stats-in` wird die Methode `consumeStats` aufgerufen
+<.> Wir füllen die States in unsere globale Variable
+
+.MyMessagingApplication
+[,java]
+----
+    // [...]
+include::{includedir}/kafkaConsumer/src/main/java/at/htl/leonding/MyMessagingApplication.java[tag=stream]
+    // [...]
+----
+
+<.> Diese Methode produziert Server sent events, und kann daher Daten an den Browser senden
+<.> Wir subscriben uns auf unsere globale Variable
+<.> Bei jeder Änderung verschicken wir ein neues Event
+
+.index.html
+[,java]
+----
+include::{includedir}/kafkaConsumer/src/main/resources/META-INF/resources/index.html[]
+----
+
+<.> Wir definieren unsere `streamStats` Methode als Eventsource
+<.> Bei jeder neuen Message ändern wir den Inhalt unseres '<pre>' Html-Tags
