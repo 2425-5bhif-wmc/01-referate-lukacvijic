@@ -564,22 +564,36 @@ pre.rouge .gs {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_mqtt">1. MQTT</a>
+<li><a href="#_einführung">1. Einführung</a></li>
+<li><a href="#_mqtt">2. MQTT</a>
 <ul class="sectlevel2">
-<li><a href="#_sender">1.1. Sender</a></li>
-<li><a href="#_receiver">1.2. Receiver</a></li>
+<li><a href="#_sender">2.1. Sender</a></li>
+<li><a href="#_receiver">2.2. Receiver</a></li>
 </ul>
 </li>
-<li><a href="#_kafka">2. Kafka</a></li>
+<li><a href="#_kafka">3. Kafka</a>
+<ul class="sectlevel2">
+<li><a href="#_sender_2">3.1. Sender</a></li>
+<li><a href="#_receiver_2">3.2. Receiver</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_mqtt"><a class="anchor" href="#_mqtt"></a>1. MQTT</h2>
+<h2 id="_einführung"><a class="anchor" href="#_einführung"></a>1. Einführung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8594; <a href="https://2425-5bhif-wmc.github.io/01-referate-lukacvijic/slides/">Slides</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mqtt"><a class="anchor" href="#_mqtt"></a>2. MQTT</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_sender"><a class="anchor" href="#_sender"></a>1.1. Sender</h3>
+<h3 id="_sender"><a class="anchor" href="#_sender"></a>2.1. Sender</h3>
 <div class="paragraph">
 <p>Die Sender Applikation ist eine <code>Quarkus</code>-Anwendung, die unter anderem auch Qute nutzt.<br>
 Mit folgendem Aufbau:</p>
@@ -590,7 +604,7 @@ Mit folgendem Aufbau:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dependencies"><a class="anchor" href="#_dependencies"></a>1.1.1. Dependencies</h4>
+<h4 id="_dependencies"><a class="anchor" href="#_dependencies"></a>2.1.1. Dependencies</h4>
 <div class="listingblock">
 <div class="title">pom.xml</div>
 <div class="content">
@@ -619,7 +633,7 @@ Mit folgendem Aufbau:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_config"><a class="anchor" href="#_config"></a>1.1.2. Config</h4>
+<h4 id="_config"><a class="anchor" href="#_config"></a>2.1.2. Config</h4>
 <div class="paragraph">
 <p>In der Config erstellen wir, einen Channel namens <code>location</code> und definieren diesen als <code>outgoing</code>, das heißt, dass wir über diesen Channel Nachrichten an den Broker senden.</p>
 </div>
@@ -636,6 +650,7 @@ Config funktioniert nur für den MQTT-Broker der Schule
 </table>
 </div>
 <div class="listingblock">
+<div class="title">application.properties</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="properties"><span class="py">quarkus.http.port</span><span class="p">=</span><span class="s">8080</span>
 <span class="py">quarkus.package.type</span><span class="p">=</span><span class="s">uber-jar</span>
@@ -676,7 +691,7 @@ Falls man nur an eine bestimmte Topic senden will: <code>mp.messaging.outgoing.l
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code"><a class="anchor" href="#_code"></a>1.1.3. Code</h4>
+<h4 id="_code"><a class="anchor" href="#_code"></a>2.1.3. Code</h4>
 <details>
 <summary class="title">Code für das DTO</summary>
 <div class="content">
@@ -990,7 +1005,7 @@ Falls man nur an eine bestimmte Topic senden will: <code>mp.messaging.outgoing.l
 </div>
 </div>
 <div class="sect2">
-<h3 id="_receiver"><a class="anchor" href="#_receiver"></a>1.2. Receiver</h3>
+<h3 id="_receiver"><a class="anchor" href="#_receiver"></a>2.2. Receiver</h3>
 <div class="paragraph">
 <p>Die Empfänger Applikation ist eine <code>Quarkus</code>-Anwendung, die unter anderem auch Qute nutzt.<br>
 Mit folgendem Aufbau:</p>
@@ -1001,7 +1016,7 @@ Mit folgendem Aufbau:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dependencies_2"><a class="anchor" href="#_dependencies_2"></a>1.2.1. Dependencies</h4>
+<h4 id="_dependencies_2"><a class="anchor" href="#_dependencies_2"></a>2.2.1. Dependencies</h4>
 <div class="listingblock">
 <div class="title">pom.xml</div>
 <div class="content">
@@ -1030,7 +1045,7 @@ Mit folgendem Aufbau:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_config_2"><a class="anchor" href="#_config_2"></a>1.2.2. Config</h4>
+<h4 id="_config_2"><a class="anchor" href="#_config_2"></a>2.2.2. Config</h4>
 <div class="paragraph">
 <p>In der Config erstellen wir, einen Channel namens <code>location</code> und definieren diesen als <code>incoming</code>, das heißt, dass wir über diesen Channel Nachrichten vom Broker erhalten.</p>
 </div>
@@ -1047,6 +1062,7 @@ Config funktioniert nur für den MQTT-Broker der Schule
 </table>
 </div>
 <div class="listingblock">
+<div class="title">application.properties</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="properties"><span class="py">quarkus.http.port</span><span class="p">=</span><span class="s">8081</span>
 <span class="py">quarkus.package.type</span><span class="p">=</span><span class="s">uber-jar</span>
@@ -1122,7 +1138,7 @@ wie zum Beispiel: owntracks/custom/groupOne/luka</p>
 </details>
 </div>
 <div class="sect3">
-<h4 id="_code_2"><a class="anchor" href="#_code_2"></a>1.2.3. Code</h4>
+<h4 id="_code_2"><a class="anchor" href="#_code_2"></a>2.2.3. Code</h4>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1321,7 +1337,7 @@ Der Code für das DTO kann von oben kopiert werden
 </div>
 </div>
 <div class="sect1">
-<h2 id="_kafka"><a class="anchor" href="#_kafka"></a>2. Kafka</h2>
+<h2 id="_kafka"><a class="anchor" href="#_kafka"></a>3. Kafka</h2>
 <div class="sectionbody">
 <div class="admonitionblock caution">
 <table>
@@ -1335,12 +1351,348 @@ coming soon&#8230;&#8203;
 </tr>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_sender_2"><a class="anchor" href="#_sender_2"></a>3.1. Sender</h3>
+<div class="paragraph">
+<p>Die Sender Applikation ist eine <code>Quarkus</code>-Anwendung.
+Mit folgendem Aufbau:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/kafkaSenderStructure.png" alt="kafkaSenderStructure">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_3"><a class="anchor" href="#_dependencies_3"></a>3.1.1. Dependencies</h4>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="c">&lt;!--[...]--&gt;</span>
+<span class="c">&lt;!--nur ein Ausschnitt der dependencies, nicht die ganze pom--&gt;</span>
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.quarkus<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>quarkus-arc<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.quarkus<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>quarkus-messaging-kafka<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+<span class="c">&lt;!--[...]--&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_config_3"><a class="anchor" href="#_config_3"></a>3.1.2. Config</h4>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="properties"><span class="py">quarkus.http.port</span><span class="p">=</span><span class="s">8083</span>
+<span class="py">quarkus.package.jar.type</span><span class="p">=</span><span class="s">uber-jar</span>
+
+<span class="c"># Outgoing channel (producing messages to Kafka)
+</span><span class="py">mp.messaging.outgoing.stats-out.connector</span><span class="p">=</span><span class="s">smallrye-kafka</span>
+<span class="py">mp.messaging.outgoing.stats-out.topic</span><span class="p">=</span><span class="s">stats </span><i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Wir definieren den Channel <code>stats-out</code> über den wir Daten an die Topic <code>stats</code> schicken</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Wir definieren keine Server Adresse, da Kafka einen default Broker für uns startet
+</td>
+</tr>
+</table>
+</div>
+<details>
+<summary class="title">Genaueres</summary>
+<div class="content">
+<div class="paragraph">
+<p>Beim Starten von der Kafka App</p>
+</div>
+<div class="listingblock command">
+<div class="content">
+<pre class="rouge highlight"><code>INFO  [io.qua.kaf.cli.dep.DevServicesKafkaProcessor] (build-7)
+Dev Services for Kafka started.
+Other Quarkus applications in dev mode will find the broker automatically.
+For Quarkus applications in production mode, you can connect to this by starting your application with
+-Dkafka.bootstrap.servers=OUTSIDE://localhost:32773</code></pre>
+</div>
+</div>
+<div class="imageblock wide-image">
+<div class="content">
+<img src="images/brokerInDocker.png" alt="brokerInDocker">
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="sect3">
+<h4 id="_code_3"><a class="anchor" href="#_code_3"></a>3.1.3. Code</h4>
+<div class="listingblock">
+<div class="title">MyMessagingApplication</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="c1">// [...]</span>
+    <span class="nd">@Inject</span>
+    <span class="nd">@Channel</span><span class="o">(</span><span class="s">"stats-out"</span><span class="o">)</span>
+    <span class="nc">Emitter</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">emitter</span><span class="o">;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="kt">void</span> <span class="nf">onStart</span><span class="o">(</span><span class="nd">@Observes</span> <span class="nc">StartupEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+
+        <span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">sendStats</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="o">}</span>
+    <span class="c1">// [...]</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Wir injizieren einen Emitter mit unserem definierten Channel</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Wir erstellen einen neuen Threadpool mit einem Thread</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Wir rufen die Methode <code>sendStats</code> alle 5 Sekunden auf</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">MyMessagingApplication</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="c1">// [...]</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendStats</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">OperatingSystemMXBean</span> <span class="n">osBean</span> <span class="o">=</span> <span class="o">(</span><span class="nc">OperatingSystemMXBean</span><span class="o">)</span> <span class="nc">ManagementFactory</span><span class="o">.</span><span class="na">getOperatingSystemMXBean</span><span class="o">();</span>
+
+        <span class="c1">// CPU Load (System-wide)</span>
+        <span class="kt">double</span> <span class="n">cpuLoad</span> <span class="o">=</span> <span class="n">osBean</span><span class="o">.</span><span class="na">getCpuLoad</span><span class="o">()</span> <span class="o">*</span> <span class="mi">100</span><span class="o">;</span>
+
+        <span class="c1">// RAM Usage (Total and Free memory) in bytes</span>
+        <span class="kt">long</span> <span class="n">totalPhysicalMemorySize</span> <span class="o">=</span> <span class="n">osBean</span><span class="o">.</span><span class="na">getTotalMemorySize</span><span class="o">();</span>
+        <span class="kt">long</span> <span class="n">freePhysicalMemorySize</span> <span class="o">=</span> <span class="n">osBean</span><span class="o">.</span><span class="na">getFreeMemorySize</span><span class="o">();</span>
+        <span class="kt">long</span> <span class="n">usedMemory</span> <span class="o">=</span> <span class="n">totalPhysicalMemorySize</span> <span class="o">-</span> <span class="n">freePhysicalMemorySize</span><span class="o">;</span>
+
+        <span class="c1">// Convert memory values to gigabytes</span>
+        <span class="kt">double</span> <span class="n">totalMemoryGB</span> <span class="o">=</span> <span class="n">totalPhysicalMemorySize</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="o">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">);</span>
+        <span class="kt">double</span> <span class="n">freeMemoryGB</span> <span class="o">=</span> <span class="n">freePhysicalMemorySize</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="o">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">);</span>
+        <span class="kt">double</span> <span class="n">usedMemoryGB</span> <span class="o">=</span> <span class="n">usedMemory</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="o">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">);</span>
+
+        <span class="c1">// Round CPU and memory values</span>
+        <span class="nc">String</span> <span class="n">formattedCpuLoad</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.0f"</span><span class="o">,</span> <span class="n">cpuLoad</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">formattedTotalMemory</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.1f"</span><span class="o">,</span> <span class="n">totalMemoryGB</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">formattedFreeMemory</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.1f"</span><span class="o">,</span> <span class="n">freeMemoryGB</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">formattedUsedMemory</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.1f"</span><span class="o">,</span> <span class="n">usedMemoryGB</span><span class="o">);</span>
+
+        <span class="c1">// Send formatted metrics to Kafka</span>
+        <span class="n">emitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                <span class="s">"cpu: %s%%, ram: %sGB, frei: %sGB, gebraucht: %sGB"</span><span class="o">,</span>
+                <span class="n">formattedCpuLoad</span><span class="o">,</span> <span class="n">formattedTotalMemory</span><span class="o">,</span> <span class="n">formattedFreeMemory</span><span class="o">,</span> <span class="n">formattedUsedMemory</span>
+        <span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="c1">// [...]</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_receiver_2"><a class="anchor" href="#_receiver_2"></a>3.2. Receiver</h3>
+<div class="paragraph">
+<p>Die Empfänger Applikation ist eine <code>Quarkus</code>-Anwendung.<br>
+Mit folgendem Aufbau:</p>
+</div>
+<div class="imageblock wide-image">
+<div class="content">
+<img src="images/kafkaReceiverStructure.png" alt="kafkaReceiverStructure">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dependencies_4"><a class="anchor" href="#_dependencies_4"></a>3.2.1. Dependencies</h4>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="c">&lt;!--[...]--&gt;</span>
+<span class="c">&lt;!--nur ein Ausschnitt der dependencies, nicht die ganze pom--&gt;</span>
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.quarkus<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>quarkus-messaging-kafka<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.quarkus<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>quarkus-rest-jackson<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.quarkus<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>quarkus-arc<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.reactivex.rxjava3<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>rxjava<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>3.1.9<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+<span class="c">&lt;!--[...]--&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_config_4"><a class="anchor" href="#_config_4"></a>3.2.2. Config</h4>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="properties"><span class="py">quarkus.http.port</span><span class="p">=</span><span class="s">8082</span>
+<span class="py">quarkus.package.jar.type</span><span class="p">=</span><span class="s">uber-jar</span>
+
+<span class="c"># Incoming channel (consuming messages from Kafka)
+</span><span class="py">mp.messaging.incoming.stats-in.connector</span><span class="p">=</span><span class="s">smallrye-kafka</span>
+<span class="py">mp.messaging.incoming.stats-in.topic</span><span class="p">=</span><span class="s">stats </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="py">mp.messaging.incoming.stats-in.auto.offset.reset</span><span class="p">=</span><span class="s">latest </span><i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Wir definieren den Channel <code>stats-in</code> über den wir Daten von der Topic <code>stats</code> erhalten</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Wir definieren den Empfänger so, dass er sich die neusten Werte holt, <code>earliest</code> würde alle Werte der Topic abrufen</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_code_4"><a class="anchor" href="#_code_4"></a>3.2.3. Code</h4>
+<div class="listingblock">
+<div class="title">MyMessagingApplication</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="c1">// [...]</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">PublishSubject</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">statsSubject</span> <span class="o">=</span> <span class="nc">PublishSubject</span><span class="o">.</span><span class="na">create</span><span class="o">();</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="nd">@Incoming</span><span class="o">(</span><span class="s">"stats-in"</span><span class="o">)</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">consumeStats</span><span class="o">(</span><span class="nc">String</span> <span class="n">stats</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">statsSubject</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="n">stats</span><span class="o">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received stats: "</span> <span class="o">+</span> <span class="n">stats</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// [...]</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Wir erstellen ein global PublishSubject variable, auf die wir uns später subscriben können</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Bei neuen Daten über den Channel <code>stats-in</code> wird die Methode <code>consumeStats</code> aufgerufen</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Wir füllen die States in unsere globale Variable</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">MyMessagingApplication</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="c1">// [...]</span>
+    <span class="nd">@GET</span>
+    <span class="nd">@Path</span><span class="o">(</span><span class="s">"/stream"</span><span class="o">)</span>
+    <span class="nd">@Produces</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">SERVER_SENT_EVENTS</span><span class="o">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">streamStats</span><span class="o">(</span><span class="nd">@Context</span> <span class="nc">Sse</span> <span class="n">sse</span><span class="o">,</span> <span class="nd">@Context</span> <span class="nc">SseEventSink</span> <span class="n">eventSink</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="n">statsSubject</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span> <i class="conum" data-value="2"></i><b>(2)</b>
+                <span class="n">c</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="n">eventSink</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">sse</span><span class="o">.</span><span class="na">newEventBuilder</span><span class="o">().</span><span class="na">data</span><span class="o">(</span><span class="n">c</span><span class="o">).</span><span class="na">build</span><span class="o">());</span> <i class="conum" data-value="3"></i><b>(3)</b>
+                <span class="o">},</span>
+                <span class="n">error</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="n">error</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+                <span class="o">}</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// [...]</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Diese Methode produziert Server sent events, und kann daher Daten an den Browser senden</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Wir subscriben uns auf unsere globale Variable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Bei jeder Änderung verschicken wir ein neues Event</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">index.html</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="o">&lt;!</span><span class="no">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">html</span> <span class="n">lang</span><span class="o">=</span><span class="s">"en"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="o">=</span><span class="s">"UTF-8"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">meta</span> <span class="n">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="n">content</span><span class="o">=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="nc">Real</span><span class="o">-</span><span class="nc">Time</span> <span class="nc">Stats</span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">PC</span> <span class="nc">Stats</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">pre</span> <span class="n">id</span><span class="o">=</span><span class="s">"stats"</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
+    <span class="kd">const</span> <span class="n">statsElement</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="na">getElementById</span><span class="o">(</span><span class="err">'</span><span class="n">stats</span><span class="err">'</span><span class="o">);</span>
+
+    <span class="n">let</span> <span class="n">evtSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EventSource</span><span class="o">(</span><span class="s">"http://localhost:8082/stats/stream"</span><span class="o">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="n">evtSource</span><span class="o">.</span><span class="na">onmessage</span> <span class="o">=</span> <span class="n">function</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">statsElement</span><span class="o">.</span><span class="na">textContent</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">data</span><span class="o">;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="o">};</span>
+<span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Wir definieren unsere <code>streamStats</code> Methode als Eventsource</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Bei jeder neuen Message ändern wir den Inhalt unseres '&lt;pre&gt;' Html-Tags</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-25 09:01:12 UTC
+Last updated 2024-11-29 07:09:24 UTC
 </div>
 </div>
 </body>

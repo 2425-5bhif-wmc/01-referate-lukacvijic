@@ -23,25 +23,29 @@ import java.util.List;
 @ApplicationScoped
 public class MyMessagingApplication {
 
-    private final PublishSubject<String> statsSubject = PublishSubject.create();
+    // tag::global[]
+    private final PublishSubject<String> statsSubject = PublishSubject.create(); // <.>
 
-    @Incoming("stats-in")
+    @Incoming("stats-in") // <.>
     public void consumeStats(String stats) {
-        statsSubject.onNext(stats);
+        statsSubject.onNext(stats); // <.>
         System.out.println("Received stats: " + stats);
     }
+    // end::global[]
 
+    // tag::stream[]
     @GET
     @Path("/stream")
-    @Produces(MediaType.SERVER_SENT_EVENTS)
+    @Produces(MediaType.SERVER_SENT_EVENTS) // <.>
     public void streamStats(@Context Sse sse, @Context SseEventSink eventSink) throws InterruptedException {
-        statsSubject.subscribe(
+        statsSubject.subscribe( // <.>
                 c -> {
-                    eventSink.send(sse.newEventBuilder().data(c).build());
+                    eventSink.send(sse.newEventBuilder().data(c).build()); // <.>
                 },
                 error -> {
                     Log.warn(error.getMessage());
                 }
         );
     }
+    // end::stream[]
 }
