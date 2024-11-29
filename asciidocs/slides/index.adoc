@@ -24,7 +24,7 @@ image::rest2.png[]
 == MQTT
 
 [.big-image]
-image::mqtt.png[]
+image::mqttnew.png[]
 
 [.font-xx-large]
 == Kafka
